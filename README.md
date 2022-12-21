@@ -8,6 +8,10 @@ https://github.com/ankitasks1 (ankitverma9079@gmail.com)
 </br>
 Commands for Bisulfite Seq data analysis
 
+#get regerence
+<img src="pic_trulli.jpg" alt="Italian Trulli">
+
+
 #------------------------------------ Install the required softwares --------------------------------------#
 
 #Step 0: Install FastQC
