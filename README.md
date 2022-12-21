@@ -14,7 +14,7 @@ Commands for Bisulfite Seq data analysis
 
 #------------------------------------ Install the required softwares --------------------------------------#
 
-#Step 0: Install FastQC
+# Step 0: Install FastQC
 
 Go to 
 
@@ -148,7 +148,7 @@ Example  #Alignment
 <code>/Users/ankitverma/Documents/tutorial/dollar_education/Bismark-0.22.3/bismark --genome index/ -1 SRR11207820_1_val_1.fq -2 SRR11207820_2_val_2.fq --bowtie2 --path_to_bowtie2 /Users/ankitverma/Documents/tutorial/dollar_education/bowtie2-2.5.0-macos-arm64/</code>
 
 
-# Step5: Sort and deduplicate aligned BAM
+# Step5: Sort aligned BAM
 #Software used: SAMtools
 <code>samtools sort -n SRR11207817_1_val_1_bismark_bt2_pe.bam > SRR11207817_sortn.bam</code>
 
