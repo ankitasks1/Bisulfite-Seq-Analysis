@@ -3,6 +3,7 @@
 Commands for Bisulfite Seq data analysis
 
 #------------------------------------ Install the required softwares --------------------------------------#
+
 #Step 0: Install FastQC
 
 Go to 
@@ -66,7 +67,7 @@ or
 
 #Example: Set path for Bowtie2 and Bismark
 
-<code>export PATH=$PATH:/path_to_software_packages/Bismark-0.22.3</code>
+<code> export PATH=$PATH:/path_to_software_packages/Bismark-0.22.3 </code>
 
  INSTALLATION OF R AND RSTUDIO
 #Make sure that you installed R 4.2.2 and RStudio for Mac OSX : http://cran.r-project.org/bin/macosx/old/R-4.2.2.pkg for windows :http://cran.r-project.org/bin/windows/base/old/4.2.2/ For linux : http://cran.r-project.org/src/base/R-4/R-4.2.2.tar.gz 
@@ -100,11 +101,11 @@ Fastq-dump –split-files SRR11207817
 
 #Quality check data
 
-/Users/ankitverma/Documents/tutorial/dollar_education/fastqc *.fastq
+<code> /Users/ankitverma/Documents/tutorial/dollar_education/fastqc *.fastq </code>
 
 # Step 2: Trimming
 #cutadapt and TrimGalore must be installed and in path, 
-<code>/Users/ankitverma/Documents/tutorial/dollar_education/TrimGalore-0.6.7/trim_galore --path_to_cutadapt /usr/local/bin/cutadapt --length 36 --paired SRR11207817_1.fastq SRR11207817_2.fastq</code>
+<code> /Users/ankitverma/Documents/tutorial/dollar_education/TrimGalore-0.6.7/trim_galore --path_to_cutadapt /usr/local/bin/cutadapt --length 36 --paired SRR11207817_1.fastq SRR11207817_2.fastq </code>
 
 <code>/Users/ankitverma/Documents/tutorial/dollar_education/TrimGalore-0.6.7/trim_galore --path_to_cutadapt /usr/local/bin/cutadapt --length 36 --paired SRR11207820_1.fastq SRR11207820_2.fastq</code>
 
