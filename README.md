@@ -8,8 +8,8 @@ https://github.com/ankitasks1 (ankitverma9079@gmail.com)
 </br>
 Commands for Bisulfite Seq data analysis
 
-#get regerence
-<img src="pic_trulli.jpg" alt="Italian Trulli">
+#get reference
+<img src="Screenshot 2022-12-19 at 13.39.05.png" alt="Get regerence">
 
 
 #------------------------------------ Install the required softwares --------------------------------------#
