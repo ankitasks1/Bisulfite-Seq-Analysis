@@ -1,8 +1,11 @@
 # Bisulfite-Seq Data Analysis
 Authors: 
-https://github.com/varshapk14 (varsh.pk@gmail.com)\n
+<br>
+https://github.com/varshapk14 (varsh.pk@gmail.com)
+</br>
+<br>
 https://github.com/ankitasks1 (ankitverma9079@gmail.com)
-
+</br>
 Commands for Bisulfite Seq data analysis
 
 #------------------------------------ Install the required softwares --------------------------------------#
