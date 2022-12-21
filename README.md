@@ -1,4 +1,7 @@
 # Bisulfite-Seq Data Analysis
+Authors: 
+https://github.com/varshapk14 (varsh.pk@gmail.com)
+https://github.com/ankitasks1 (ankitverma9079@gmail.com)
 
 Commands for Bisulfite Seq data analysis
 
@@ -16,7 +19,7 @@ Make sure the suitable java runtime environment (JRE) is installed
 
 <code>java -version</code>
 
-Install fastqcn executable
+Install fastqc 
 
 Make the fastqc executable executable
 
