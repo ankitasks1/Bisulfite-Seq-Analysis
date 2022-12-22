@@ -14,6 +14,11 @@ Commands for Bisulfite Seq data analysis
 <br>
 <b>For Mouse and Human, I generally choose Gencode. For other species you can select any other assembly</b>
 </br>
+
+<br>
+</br>
+<br>
+</br>
 #------------------------------------ Install the required softwares --------------------------------------#
 
 # Step 0: Install FastQC
