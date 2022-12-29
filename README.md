@@ -21,7 +21,10 @@ Commands for Bisulfite Seq data analysis
 </br>
 #------------------------------------ Install the required softwares --------------------------------------#
 
-# Step 0: Install FastQC
+# Step 0: Installations
+#sratoolkit : easy to install if your using command line version other wise webversion is also available 
+
+# FastQC
 
 Go to 
 
@@ -33,14 +36,17 @@ Make sure the suitable java runtime environment (JRE) is installed
 
 <code>java -version</code>
 
-Install fastqc 
+#Install fastqc 
 
 Make the fastqc executable executable
 
 <code>chmod 755 fastqc</code>
 
 <code>./fastqc SRRaccession.fastq.gz</code>
-# Check that cutadapt is installed: cutadapt --version, if not
+# Cutadapt, required by TrimHalore
+
+Check that cutadapt is installed: 
+<code>cutadapt --version</code> if not
 https://cutadapt.readthedocs.io/en/stable/installation.html 
 UNIX user use conda or pip
 
@@ -61,6 +67,8 @@ or
 # Check that FastQC is installed 
 <code>fastqc -v</code>
 
+#Install TrimGalore
+
 <code>wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/0.6.7.tar.gz</code>
 
 <code>tar xvzf trim_galore.tar.gz</code>
@@ -71,8 +79,10 @@ or
 
 
 
-# Install necessary softwares:
+# Bismark
 <code>tar xzf bismark_v0.X.Y.tar.gz</code>
+
+# Samtools
 
 <code>tar xvjf samtools-1.1.tar.bz2</code>
 
@@ -86,12 +96,12 @@ or
 
 <code> export PATH=$PATH:/path_to_software_packages/Bismark-0.22.3 </code>
 
- INSTALLATION OF R AND RSTUDIO
+ #INSTALLATION OF R AND RSTUDIO
 #Make sure that you installed R 4.2.2 and RStudio for Mac OSX : http://cran.r-project.org/bin/macosx/old/R-4.2.2.pkg for windows :http://cran.r-project.org/bin/windows/base/old/4.2.2/ For linux : http://cran.r-project.org/src/base/R-4/R-4.2.2.tar.gz 
 http://www.rstudio.com/ide/download/
 ## PROVIDE R BASICS CHEATSHEET ###
 
-INSTALLATION OF PACKAGES
+#INSTALLATION OF PACKAGES
 CRAN: http://cran.r-project.org/ 
 Bioconductor: http://bioconductor.org/ 
 Github: http://github.com/
@@ -108,15 +118,16 @@ BiocManager::install("methylKit")
 	
 #------------------------------------ Run the pipeline --------------------------------------#
 
-# Step 1: Download Public data
+# Step 1: Download Public data (optional)
 
 sratoolkit (webversion) or CLI
 
-# QC (You can also use GUI)
 
-Fastq-dump –split-files SRR11207817
 
-#Quality check data
+fastq-dump –split-files SRR11207817
+Note: If you already have data move to Step 2 and Skip Step 1
+
+#Quality check data : FastQC
 
 <code> /Users/ankitverma/Documents/tutorial/dollar_education/fastqc *.fastq </code>
 
