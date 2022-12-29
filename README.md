@@ -43,7 +43,7 @@ Make the fastqc executable executable
 <code>chmod 755 fastqc</code>
 
 <code>./fastqc SRRaccession.fastq.gz</code>
-# Cutadapt, required by TrimHalore
+# Cutadapt, required by TrimGalore
 
 Check that cutadapt is installed: 
 <code>cutadapt --version</code> if not
@@ -65,9 +65,9 @@ or
 <code>sudo ln -s ../cutadapt/bin/cutadapt</code>
 
 # Check that FastQC is installed 
-<code>fastqc -v</code>
+required by TrimGalore if you want to run QC after trimming. 
 
-#Install TrimGalore
+# TrimGalore
 
 <code>wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/0.6.7.tar.gz</code>
 
@@ -77,7 +77,7 @@ or
 
 <code>conda install -c bioconda trim-galore</code>
 
-
+# Bowtie2 
 
 # Bismark
 <code>tar xzf bismark_v0.X.Y.tar.gz</code>
