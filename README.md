@@ -21,7 +21,9 @@ Commands for Bisulfite Seq data analysis
 </br>
 
 
-# Step 0: Install FastQC
+# Step 0: Install the required softwares 
+
+# Install FastQC
 
 Go to 
 
@@ -40,58 +42,81 @@ Make the fastqc executable executable
 <code>chmod 755 fastqc</code>
 
 <code>./fastqc SRRaccession.fastq.gz</code>
-# Check that cutadapt is installed: cutadapt --version, if not
-https://cutadapt.readthedocs.io/en/stable/installation.html 
-UNIX user use conda or pip
 
+# Check that cutadapt is installed: 
+cutadapt --version
+
+if not
+https://cutadapt.readthedocs.io/en/stable/installation.html 
+<br>
+UNIX user use conda or pip
+</br>
+<br>
 <code>conda create -n cutadaptenv cutadapt</code>
 
 <code>conda activate cutadaptenv</code>
 
 <code>cutadapt --version</code>
-
-(mac use pip)
+</br>
+<br>
+(mac user can use pip)
+</br>
 <code>pip install --user --upgrade cutadapt </code>
+
 or
+
 <code>sudo python3 -m venv /usr/local/cutadapt</code>
+
 <code>sudo /usr/local/cutadapt/bin/pip install cutadapt</code>
+
 <code>cd /usr/local/bin/</code>
+
 <code>sudo ln -s ../cutadapt/bin/cutadapt</code>
 
-# Check that FastQC is installed 
+# Check that FastQC is installed and in path
 <code>fastqc -v</code>
 
+#Install Trimgalore
+#source installation
 <code>wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/0.6.7.tar.gz</code>
 
 <code>tar xvzf trim_galore.tar.gz</code>
 
-<code>~/TrimGalore-0.6.6/trim_galore
+<code>~/TrimGalore-0.6.6/trim_galore</code>
+	
+# conda installation trimgalore
 
 <code>conda install -c bioconda trim-galore</code>
 
-
-
-# Install necessary softwares:
+# Bismark installation from source
+#Go to Babraham Institute page of Bismark and download latest version
+#unzip and executable is ready to be run
 <code>tar xzf bismark_v0.X.Y.tar.gz</code>
 
+# Samtools installation from source
+#Go to samtools webpage and download both samtools and htslib, 
+#install both
 <code>tar xvjf samtools-1.1.tar.bz2</code>
 
 <code>cd /path_to_samtools/samtools-1.1</code>
 
 <code>make</code>
 
-#SET $PATH VARIABLE TO CALL THE SOFTWARES DIRECTLY
+#Note: YOU CAN ALSO SET $PATH VARIABLE TO CALL THE SOFTWARES DIRECTLY WITHOUT GIVING PATH EVERYTIME (recomended)
 
 #Example: Set path for Bowtie2 and Bismark
 
 <code> export PATH=$PATH:/path_to_software_packages/Bismark-0.22.3 </code>
 
- INSTALLATION OF R AND RSTUDIO
-#Make sure that you installed R 4.2.2 and RStudio for Mac OSX : http://cran.r-project.org/bin/macosx/old/R-4.2.2.pkg for windows :http://cran.r-project.org/bin/windows/base/old/4.2.2/ For linux : http://cran.r-project.org/src/base/R-4/R-4.2.2.tar.gz 
-http://www.rstudio.com/ide/download/
-## PROVIDE R BASICS CHEATSHEET ###
+# INSTALLATION OF R AND RSTUDIO
+#Make sure that you installed R 4.2.2 and RStudio 
+For Mac OSX : http://cran.r-project.org/bin/macosx/old/R-4.2.2.pkg 
+For Windows :http://cran.r-project.org/bin/windows/base/old/4.2.2/ 
+For Linux : http://cran.r-project.org/src/base/R-4/R-4.2.2.tar.gz 
+For Rstudio any OS go to http://www.rstudio.com/ide/download/ and install as per developers instructions
 
-INSTALLATION OF PACKAGES
+## PROVIDED  R BASICS CHEATSHEET ##
+#Ways to install packages
 CRAN: http://cran.r-project.org/ 
 Bioconductor: http://bioconductor.org/ 
 Github: http://github.com/
@@ -141,10 +166,10 @@ Example #Generate indexes /enter index folder (only one time)
 
 
 # Step4: Alignment
-#Current working directory: your current directory (./)
-#Software used: Bismark 
-#Reference assembly: Ensembl Hg38 fasta (ref.fa and ref.fa.fai)
-#Alignment tool: Bismark (default) and HISAT 
+Current working directory: your current directory (./)
+Software used: Bismark 
+Reference assembly: Ensembl Hg38 fasta (ref.fa and ref.fa.fai)
+Alignment tool: Bismark (default) and HISAT 
 
 <code>path_to_bismark/Bismark-0.22.3/bismark --genome /path_to_genome_folder/ -1 SRR11207817_1_val_1.fq -2 SRR11207817_2_val_2.fq -o ./ -score_min L,0,-0.2 -X 500 -I 0<c/ode>
 
@@ -156,7 +181,7 @@ Example  #Alignment
 
 
 # Step5: Sort aligned BAM
-#Software used: SAMtools
+Software used: SAMtools
 <code>samtools sort -n SRR11207817_1_val_1_bismark_bt2_pe.bam > SRR11207817_sortn.bam</code>
 
 Example #BAM Sorting
@@ -165,13 +190,13 @@ Example #BAM Sorting
 <code>/Users/ankitverma/Documents/tutorial/dollar_education/samtools sort -o SRR11207817_1_val_1_bismark_bt2_pe.sort.bam SRR11207817_1_val_1_bismark_bt2_pe.bam</code>
 
 # Step6:  Indexing
-Example #Index bam
+Example Index bam
 <code>/Users/ankitverma/Documents/tutorial/dollar_education/samtools index SRR11207817_1_val_1_bismark_bt2_pe.sort.bam</code>
 <code>/Users/ankitverma/Documents/tutorial/dollar_education/samtools index SRR11207820_1_val_1_bismark_bt2_pe.sort.bam</code>
 
 
 # Step7: Sort and deduplicate aligned BAM
-#Continue with bismark…
+Continue with bismark…
 <code>path_to_bismark/Bismark-0.22.3/deduplicate_bismark -o SRR11207817 --bam SRR11207817_sortn.bam </code>
 
 # Step8: Extraction of methylation call
@@ -183,21 +208,22 @@ Example #Methylation call</code>
 
 
 Optional steps: 
-#Install Perl module for outputting M-bias plot
-#sudo apt install libgd-graph-perl
+Install Perl module for outputting M-bias plot
+
+sudo apt install libgd-graph-perl
 <code>bismark2report  --dir . -o SRR11207817_bismark_report.txt --alignment_report /path_to_file/SRR11207817_1_val_1_bismark_bt2_PE_report.txt --dedup_report /path_to_file/SRR11207817_sortn.deduplication_report.txt --splitting_report /path_to_file/SRR11207817.deduplicated_splitting_report.txt --mbias_report /path_to_file/SRR11207817.deduplicated.M-bias.txt</code>
 
 # Step 9: DIFFERENTIAL METHYLATION ANALYSIS:
-FILE FORMATTING ON BASH
-### Extract lines corresponding to CG context from CX_report.txt
+#FILE FORMATTING ON BASH
+Extract lines corresponding to CG context from CX_report.txt
 <code>zcat Sample_CX_report.txt.gz | awk '{if($4=="CG") print $0}' -| gzip > Sample_CG_report.txt.gz</code>
 
-### Extract chr21 and chr22 from PRACTICE DATASET provided
+Extract chr21 and chr22 from PRACTICE DATASET provided
 <code>zcat GSM2971953_Test1.CpG_report.txt.gz | awk '{if($1=="chr21"||$2=="chr22") print $0}' -| gzip  > Test1_chr21_22_CpG_report.txt.gz</code
 
 
 
-### Format CG_report.txt to methylkit compatible format in R
+#Format CG_report.txt to methylkit compatible format in R
 Run format_CG_report.R in RStudio or R environment
 OR,
 Use the CG report directly as input for Methylkit.
