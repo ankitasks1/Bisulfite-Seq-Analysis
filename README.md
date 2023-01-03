@@ -175,17 +175,17 @@ BiocManager::install("methylKit")
 
 sratoolkit (webversion) or CLI
 
-skip this step if data is already available
-
-# QC (You can also use GUI)
-
 fastq-dump –split-files SRR11207817
+
+:--skip this step if data is already available--:
+
+# Step 2: Quality check data (You can also use GUI)
 
 #Quality check data
 
 <code> /Users/ankitverma/Documents/tutorial/dollar_education/fastqc *.fastq </code>
 
-# Step 2: Trimming
+# Step 3: Trimming
 #cutadapt and TrimGalore must be installed and in path, 
 
 <code> /Users/ankitverma/Documents/tutorial/dollar_education/TrimGalore-0.6.7/trim_galore --path_to_cutadapt /usr/local/bin/cutadapt --length 36 --paired SRR11207817_1.fastq SRR11207817_2.fastq </code>
@@ -199,16 +199,15 @@ fastq-dump –split-files SRR11207817
 #SRR11207820_1_val_1.fastq SRR11207820_2_val_2.fastq
 
 	
-# Step3: Genome Index Preparation
+# Step 4: Genome Index Preparation
 	
 <code>path/to/bismark/Bismark-0.22.3/bismark_genome_preparation <path_to_genome_folder></code>
 	
-Example #Generate indexes /enter index folder (only one time)
+Example Generate indexes /enter index folder (only one time)
 
-<code>/Users/ankitverma/Documents/tutorial/dollar_education/Bismark-0.22.3/bismark_genome_preparation --bowtie2 --path_to_aligner /Users/ankitverma/Documents/tutorial/dollar_education/bowtie2-2.5.0-macos-arm64/ ./</code>
+<code>/Users/ankitverma/Documents/tutorial/dollar_education/Bismark-0.22.3/bismark_genome_preparation --bowtie2 --path_to_aligner /Users/ankitverma/Documents/tutorial/dollar_education/bowtie2-2.5.0-macos-arm64/ ./ </code>
 
-
-# Step4: Alignment
+# Step 5: Alignment / Mapping
 
 Current working directory: your current directory (./)
 
@@ -228,7 +227,7 @@ Example  #Alignment
 <code>/Users/ankitverma/Documents/tutorial/dollar_education/Bismark-0.22.3/bismark --genome index/ -1 SRR11207820_1_val_1.fq -2 SRR11207820_2_val_2.fq --bowtie2 --path_to_bowtie2 /Users/ankitverma/Documents/tutorial/dollar_education/bowtie2-2.5.0-macos-arm64/</code>
 
 
-# Step5: Sort aligned BAM
+# Step 6: Sort aligned BAM
 
 Software used: SAMtools
 
@@ -240,7 +239,7 @@ Example #BAM Sorting
 
 <code>/Users/ankitverma/Documents/tutorial/dollar_education/samtools sort -o SRR11207817_1_val_1_bismark_bt2_pe.sort.bam SRR11207817_1_val_1_bismark_bt2_pe.bam</code>
 
-# Step6:  Indexing
+# Step 7:  Indexing
 
 Example Index bam
 
@@ -249,11 +248,11 @@ Example Index bam
 <code>/Users/ankitverma/Documents/tutorial/dollar_education/samtools index SRR11207820_1_val_1_bismark_bt2_pe.sort.bam</code>
 
 
-# Step7: Deduplicate aligned BAM (must for WGBS)
+# Step 8: Deduplicate aligned BAM (must for WGBS)
 
 <code>path_to_bismark/Bismark-0.22.3/deduplicate_bismark -o SRR11207817 --bam SRR11207817_sortn.bam </code>
 
-# Step8: Extraction of methylation call
+# Step 9: Extraction of methylation call
 
 <code>path_to_bismark/Bismark-0.22.3/bismark_methylation_extractor --genome_folder /path_to_genome_folder/ -p --no_overlap --bedGraph --counts --buffer_size 10G --multicore 2 --cytosine_report --CX_context -o /path_to_output_folder/CX_report --gzip ./SRR11207817.deduplicated.bam
 Example #Methylation call</code>
@@ -271,8 +270,10 @@ sudo apt install libgd-graph-perl
 
 <code>bismark2report  --dir . -o SRR11207817_bismark_report.txt --alignment_report /path_to_file/SRR11207817_1_val_1_bismark_bt2_PE_report.txt --dedup_report /path_to_file/SRR11207817_sortn.deduplication_report.txt --splitting_report /path_to_file/SRR11207817.deduplicated_splitting_report.txt --mbias_report /path_to_file/SRR11207817.deduplicated.M-bias.txt</code>
 
-# Step 9: DIFFERENTIAL METHYLATION ANALYSIS:
+# Step 10: Differential Methylation Analysis:
+	
 # methylkit
+	
 # specific format is required as input to methylkit
 
 Extract lines corresponding to CG context from CX_report.txt
