@@ -8,8 +8,8 @@ https://github.com/ankitasks1 (ankitverma9079@gmail.com)
 </br>
 Commands for Bisulfite Seq data analysis
 
-#get reference
-<img src="Screenshot 2022-12-19 at 13.39.05.png" alt="Get regerence">
+# Get reference genome
+<img src="Screenshot 2022-12-19 at 13.39.05.png" alt="Get reference">
 
 <br>
 <b>For Mouse and Human, I generally choose Gencode. For other species you can select any other assembly</b>
@@ -19,12 +19,9 @@ Commands for Bisulfite Seq data analysis
 </br>
 <br>
 </br>
-#------------------------------------ Install the required softwares --------------------------------------#
 
-# Step 0: Installations
-#sratoolkit : easy to install if your using command line version other wise webversion is also available 
 
-# FastQC
+# Step 0: Install FastQC
 
 Go to 
 
@@ -36,17 +33,14 @@ Make sure the suitable java runtime environment (JRE) is installed
 
 <code>java -version</code>
 
-#Install fastqc 
+Install fastqc 
 
 Make the fastqc executable executable
 
 <code>chmod 755 fastqc</code>
 
 <code>./fastqc SRRaccession.fastq.gz</code>
-# Cutadapt, required by TrimGalore
-
-Check that cutadapt is installed: 
-<code>cutadapt --version</code> if not
+# Check that cutadapt is installed: cutadapt --version, if not
 https://cutadapt.readthedocs.io/en/stable/installation.html 
 UNIX user use conda or pip
 
@@ -65,9 +59,7 @@ or
 <code>sudo ln -s ../cutadapt/bin/cutadapt</code>
 
 # Check that FastQC is installed 
-required by TrimGalore if you want to run QC after trimming. 
-
-# TrimGalore
+<code>fastqc -v</code>
 
 <code>wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/0.6.7.tar.gz</code>
 
@@ -77,12 +69,10 @@ required by TrimGalore if you want to run QC after trimming.
 
 <code>conda install -c bioconda trim-galore</code>
 
-# Bowtie2 
 
-# Bismark
+
+# Install necessary softwares:
 <code>tar xzf bismark_v0.X.Y.tar.gz</code>
-
-# Samtools
 
 <code>tar xvjf samtools-1.1.tar.bz2</code>
 
@@ -96,12 +86,12 @@ required by TrimGalore if you want to run QC after trimming.
 
 <code> export PATH=$PATH:/path_to_software_packages/Bismark-0.22.3 </code>
 
- #INSTALLATION OF R AND RSTUDIO
+ INSTALLATION OF R AND RSTUDIO
 #Make sure that you installed R 4.2.2 and RStudio for Mac OSX : http://cran.r-project.org/bin/macosx/old/R-4.2.2.pkg for windows :http://cran.r-project.org/bin/windows/base/old/4.2.2/ For linux : http://cran.r-project.org/src/base/R-4/R-4.2.2.tar.gz 
 http://www.rstudio.com/ide/download/
 ## PROVIDE R BASICS CHEATSHEET ###
 
-#INSTALLATION OF PACKAGES
+INSTALLATION OF PACKAGES
 CRAN: http://cran.r-project.org/ 
 Bioconductor: http://bioconductor.org/ 
 Github: http://github.com/
@@ -118,16 +108,15 @@ BiocManager::install("methylKit")
 	
 #------------------------------------ Run the pipeline --------------------------------------#
 
-# Step 1: Download Public data (optional)
+# Step 1: Download Public data
 
 sratoolkit (webversion) or CLI
 
+# QC (You can also use GUI)
 
+Fastq-dump –split-files SRR11207817
 
-fastq-dump –split-files SRR11207817
-Note: If you already have data move to Step 2 and Skip Step 1
-
-#Quality check data : FastQC
+#Quality check data
 
 <code> /Users/ankitverma/Documents/tutorial/dollar_education/fastqc *.fastq </code>
 
