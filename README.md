@@ -137,9 +137,11 @@ BiocManager::install("methylKit")
 
 sratoolkit (webversion) or CLI
 
+skip this step if data is already available
+
 # QC (You can also use GUI)
 
-Fastq-dump –split-files SRR11207817
+fastq-dump –split-files SRR11207817
 
 #Quality check data
 
