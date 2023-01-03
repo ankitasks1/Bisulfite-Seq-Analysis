@@ -159,9 +159,10 @@ BiocManager::install("methylKit")
 # Step 1: Download Public data
 
 sratoolkit (webversion) or CLI
-
-fastq-dump --split-files SRR11207817
-fastq-dump --split-files SRR11207820
+<br>
+fastq-dump --split-files SRR11207817</br>
+<br>
+fastq-dump --split-files SRR11207820</br>
 
 :--skip this step if data is already available--:
 
