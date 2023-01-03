@@ -195,20 +195,14 @@ fastq-dump --split-files SRR11207820</br>
 <b>For Mouse and Human, I generally choose Gencode. For other species you can select any other assembly</b>
 </br>
 
-<br>
-</br>
-<br>
-</br>
-
-
 
 # Step 4: Genome Index Preparation
 	
-<code>path/to/bismark/Bismark-0.22.3/bismark_genome_preparation <path_to_genome_folder></code>
+<code> path/to/bismark/Bismark-0.22.3/bismark_genome_preparation <path_to_genome_folder> </code>
 	
-Example Generate indexes /enter index folder (only one time)
+Example: Generate indexes of reference genome  (only one time)
 
-<code>/Users/ankitverma/Documents/tutorial/dollar_education/Bismark-0.22.3/bismark_genome_preparation --bowtie2 --path_to_aligner /Users/ankitverma/Documents/tutorial/dollar_education/bowtie2-2.5.0-macos-arm64/ ./ </code>
+<code>/Users/ankitverma/Documents/tutorial/dollar_education/Bismark-0.22.3/bismark_genome_preparation --bowtie2 --path_to_aligner /Users/ankitverma/Documents/tutorial/dollar_education/bowtie2-2.5.0-macos-arm64/ . </code>
 
 # Step 5: Alignment / Mapping
 
@@ -216,16 +210,17 @@ Current working directory: your current directory (./)
 
 Software used: Bismark 
 
-Reference assembly: Ensembl Hg38 fasta (ref.fa and ref.fa.fai)
+Reference assembly: Ensembl hg38 fasta (ref.fa and ref.fa.fai)
 
-Alignment tool: Bismark (default) and HISAT 
+Alignment tool: Bismark (default) 
 
-<code>path_to_bismark/Bismark-0.22.3/bismark --genome /path_to_genome_folder/ -1 SRR11207817_1_val_1.fq -2 SRR11207817_2_val_2.fq -o ./ -score_min L,0,-0.2 -X 500 -I 0<c/ode>
+<code>path_to_bismark/Bismark-0.22.3/bismark --genome /path_to_genome_folder/ -1 SRR11207817_1_val_1.fq -2 SRR11207817_2_val_2.fq -o ./ -score_min L,0,-0.2 -X 500 -I 0 </code>
 
 
-Example  #Alignment
+Example
 
-<code>/Users/ankitverma/Documents/tutorial/dollar_education/Bismark-0.22.3/bismark --genome index/ -1 SRR11207817_1_val_1.fq -2 SRR11207817_2_val_2.fq --bowtie2 --path_to_bowtie2 /Users/ankitverma/Documents/tutorial/dollar_education/bowtie2-2.5.0-macos-arm64/</code>
+<code>/Users/ankitverma/Documents/tutorial/dollar_education/Bismark-0.22.3/bismark --genome index/ -1 SRR11207817_1_val_1.fq -2 SRR11207817_2_val_2.fq --bowtie2 --path_to_bowtie2 /Users/ankitverma/Documents/tutorial/dollar_education/bowtie2-2.5.0-macos-arm64/ </code>
+
 
 <code>/Users/ankitverma/Documents/tutorial/dollar_education/Bismark-0.22.3/bismark --genome index/ -1 SRR11207820_1_val_1.fq -2 SRR11207820_2_val_2.fq --bowtie2 --path_to_bowtie2 /Users/ankitverma/Documents/tutorial/dollar_education/bowtie2-2.5.0-macos-arm64/</code>
 
