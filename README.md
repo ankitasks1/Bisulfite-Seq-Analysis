@@ -9,6 +9,8 @@ https://github.com/ankitasks1 (ankitverma9079@gmail.com)
 Commands for Bisulfite Seq data analysis
 
 # Get reference genome
+
+4 possible sources (UCSC, Gencode, NCBI, Ensembl)
 <img src="Screenshot 2022-12-19 at 13.39.05.png" alt="Get reference">
 
 <br>
