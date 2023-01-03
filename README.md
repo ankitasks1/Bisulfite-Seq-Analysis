@@ -8,21 +8,6 @@ https://github.com/ankitasks1 (ankitverma9079@gmail.com)
 </br>
 Commands for Bisulfite Seq data analysis
 
-# Get reference genome
-
-4 possible sources (UCSC, Gencode, NCBI, Ensembl)
-<img src="Screenshot 2022-12-19 at 13.39.05.png" alt="Get reference">
-
-<br>
-<b>For Mouse and Human, I generally choose Gencode. For other species you can select any other assembly</b>
-</br>
-
-<br>
-</br>
-<br>
-</br>
-
-
 # Step 0: Install the required softwares 
 
 # Install FastQC
@@ -198,7 +183,23 @@ fastq-dump –split-files SRR11207817
 
 #SRR11207820_1_val_1.fastq SRR11207820_2_val_2.fastq
 
-	
+
+# Get reference genome
+
+4 possible sources (UCSC, Gencode, NCBI, Ensembl)
+<img src="Screenshot 2022-12-19 at 13.39.05.png" alt="Get reference">
+
+<br>
+<b>For Mouse and Human, I generally choose Gencode. For other species you can select any other assembly</b>
+</br>
+
+<br>
+</br>
+<br>
+</br>
+
+
+
 # Step 4: Genome Index Preparation
 	
 <code>path/to/bismark/Bismark-0.22.3/bismark_genome_preparation <path_to_genome_folder></code>
