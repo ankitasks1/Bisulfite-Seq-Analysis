@@ -269,9 +269,9 @@ sudo apt install libgd-graph-perl
 <code>bismark2report  --dir . -o SRR11207817_bismark_report.txt --alignment_report /path_to_file/SRR11207817_1_val_1_bismark_bt2_PE_report.txt --dedup_report /path_to_file/SRR11207817_sortn.deduplication_report.txt --splitting_report /path_to_file/SRR11207817.deduplicated_splitting_report.txt --mbias_report /path_to_file/SRR11207817.deduplicated.M-bias.txt</code>
 
 # Step 10: Differential Methylation Analysis:
-	
+
 # methylkit
-	
+
 <b><u>Note: Specific format is required as input to methylkit</u></b>
 
 <u>Extract lines corresponding to CG context from CX_report.txt</u>
@@ -304,7 +304,7 @@ bam_files_list <- as.list(list.files(path = "/mnt/home3/outfolder/bismark_dedupl
                                      full.names = TRUE))
 
 
-	<u>List of sample IDs</u>
+<u>List of sample IDs</u>
 sample_ids_list <- lapply(str_split(bam_files_list,"/"), function(x) gsub("_R1_val_1_bismark_bt2_pe.deduplicated.sorted.bam","",x[11]))
 
 
@@ -325,28 +325,27 @@ dml_diffs <- 25
 # Import from BAM
 Get methylation stats for CpGs with at least min_coverage coverage
 
-	<code>
+<code>
 meth_stats <- processBismarkAln(location = bam_files_list,
                                 sample.id = sample_ids_list,
                                 assembly = "GRCm39.fa ",
-                                save.folder = NULL, 
-                                save.context = c("CpG"), 
+                                save.folder = NULL,
+                                save.context = c("CpG"),
                                 read.context = "CpG",
                                 mincov = min_coverage,
-                                minqual = min_qual, 
+                                minqual = min_qual,
                                 phred64 = FALSE, Your data is phred33,
                                 treatment = rep(0, length(bam_files_list)),
                                 save.db = FALSE)
 
-	      </code>
+</code>
 
 
-		<u>File count</u>
+<u>File count</u>
+nFiles <- length(bam_files_list)
 
-		nFiles <- length(bam_files_list)
-	
 # OR you can import from CpG report produced by Bismark
-	
+
 # Import from CpG report
 First convert .cov.gz file to .CpG.report.txt.gz using convert_cov_to_CpGreport.sh (custom)
 test
@@ -357,7 +356,7 @@ test_report_list <- as.list(list.files(path = "/mnt/home3/outfolder/bismark_meth
                                 full.names = TRUE))
 
 
-		    <code>
+<code>
 for (content1 in test_report_list){
   print(content1)
   temp1 <- gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/", "", content1)
@@ -377,18 +376,18 @@ for (content1 in test_report_list){
   write.table(test_report, paste0("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/",temp1,".CpG_test_report.txt"), sep="\t", quote = F, append=F, row.names = F, col.names = T)
 }
 
-		</code>
+</code>
 Create a list of myCpG_report.txt
 test_list <- lapply(test_report_list, function(x) gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov","",(gsub(".gz","",x))))
 test.ids <- lapply(test_list, function(x) gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/","",(gsub(".CpG_test_report.txt","",x))))
 
- 
-		<u>List of sample IDs</u>
+
+<u>List of sample IDs</u>
 sample_ids_reports_list <- lapply(str_split(CpG.reports.list,"/"), function(x) gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov.CpG_report.txt.gz","",x[11]))
 
 
 read the files to a methylRawList object: myobj
-			   <code>
+<code>
 myobj=methRead(test_list,
                sample.id=test.ids,
                assembly="GRCm39",
@@ -396,7 +395,7 @@ myobj=methRead(test_list,
                context="CpG",
                mincov = 5
 )
-		</code>
+</code>
 
 ---Now run the script on real data----
 samples
@@ -407,10 +406,10 @@ CpG.reports.list <- as.list(list.files(path = "/mnt/home3/outfolder/bismark_meth
                                        full.names = TRUE))
 
 
-		    <u>File count</u>
+<u>File count</u>
 nFiles <- length(CpG.reports.list)
 
-	  <code>
+<code>
 for (report_content in CpG.reports.list){
   print(report_content)
   temp_content <- gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/", "", report_content)
@@ -422,7 +421,7 @@ for (report_content in CpG.reports.list){
   report["chrBase"] <- paste0(report$chr,
                               ".",
                               report$base)
-  
+
   report["coverage"] <- report$methylated + report$unmethylated
   report["freqC"] <- (report$methylated  *  100) / (report$methylated + report$unmethylated)
   report["freqT"] <- (report$unmethylated  *  100) / (report$methylated + report$unmethylated)
@@ -431,7 +430,7 @@ for (report_content in CpG.reports.list){
   rm(report)
   rm(temp_content)
 }
-	</code>
+</code>
 Create a list of myCpG_report.txt
 mysamples_list <- lapply(CpG.reports.list, function(x) gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov","",(gsub(".gz","",x))))
 samples.id <- lapply(mysamples_list, function(x) gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/","",(gsub(".CpG_report.txt","",x))))
@@ -439,7 +438,7 @@ samples.id <- lapply(mysamples_list, function(x) gsub("/mnt/home3/outfolder/bism
 
 
 read the files to a methylRawList object: myobj
-	<code>
+<code>
 myobjDB=methRead(mysamples_list,
                sample.id=samples.id,
                assembly="GRCm39",
@@ -448,7 +447,7 @@ myobjDB=methRead(mysamples_list,
                mincov = 5,
                dbtype = "tabix",
                dbdir = "methylDB")
-		</code>
+</code>
 
 print(myobjDB[[1]]@dbpath)
 
@@ -484,10 +483,10 @@ Note: In order to do further analysis, we will need to get the bases covered in 
 merge.norm.filt.objDB <- unite(norm.filt.objDB, destrand=FALSE)
 head(merge.norm.filt.objDB)
 
-By default, unite function produces bases/regions covered in all samples. 
+By default, unite function produces bases/regions covered in all samples.
 That requirement can be relaxed using “min.per.group” option in unite function.
 This creates a methylBase object, where only CpGs covered with at least 1 sample per group will be returned
-there were two groups defined by the treatment vector, 
+there were two groups defined by the treatment vector,
 given during the creation of myobj: treatment=c(1,1,0,0)
 Not doing it meth.min=unite(myobj,min.per.group=1L)
 
@@ -497,12 +496,12 @@ getCorrelation(merge.norm.filt.objDB,plot=TRUE)
 dev.off()
 
 Clustering dendrogram
-png("dendrogram_path.png", height = 600, width = 1000) 
+png("dendrogram_path.png", height = 600, width = 1000)
 clusterSamples(merge.norm.filt.objDB, dist="correlation", method="ward", plot=TRUE)
 dev.off()
 
 Run a PCA analysis on percent methylation for all samples
-png("pca_path.png", height = 1000, width = 1000) 
+png("pca_path.png", height = 1000, width = 1000)
 PCASamples(merge.norm.filt.objDB)
 dev.off()
 
@@ -513,74 +512,75 @@ dev.off()
 
 
 merge.norm.filt.objDB_data <- getData(merge.norm.filt.objDB)
-colnames(merge.norm.filt.objDB_data) <- c(colnames(merge.norm.filt.objDB_data)[1:4], 
-                                          paste0(unlist(lapply(getSampleID(merge.norm.filt.objDB), function(x) rep(x,3))), "_", 
+colnames(merge.norm.filt.objDB_data) <- c(colnames(merge.norm.filt.objDB_data)[1:4],
+                                          paste0(unlist(lapply(getSampleID(merge.norm.filt.objDB), function(x) rep(x,3))), "_",
                                                  colnames(getData(merge.norm.filt.objDB)[5:52])))
 
 For some situations, it might be desirable to summarize methylation information over tiling windows rather than doing base-pair resolution analysis.
 Tiling windows analysis
+<code>
 myobjDB.low <- methRead(mysamples_list,
                  sample.id=samples.id,
                  assembly="GRCm39",
                  treatment=rep(0, length(mysamples_list)),
                  context="CpG",
                  mincov = 2)
-
+</code>    
 tiles = tileMethylCounts(myobjDB.low,win.size=1000,step.size=1000,cov.bases = 10)
 head(tiles[[1]],3)
 
 
-Finding differentially methylated bases or regions
+<u>Finding differentially methylated bases or regions</u>
 myDiff=calculateDiffMeth(merge.norm.filt.objDB)
 
 
-get hyper methylated bases
+<u>get hyper methylated bases</u>
 myDiff25p.hyper=getMethylDiff(myDiff,difference=25,qvalue=0.01,type="hyper")
 
 
-get hypo methylated bases
+<u>get hypo methylated bases</u>
 myDiff25p.hypo=getMethylDiff(myDiff,difference=25,qvalue=0.01,type="hypo")
 
 
-get all differentially methylated bases
+<u>get all differentially methylated bases</u>
 myDiff25p=getMethylDiff(myDiff,difference=25,qvalue=0.01)
 
-visualize the distribution of hypo/hyper-methylated bases/regions per chromosome
+<u>visualize the distribution of hypo/hyper-methylated bases/regions per chromosome</u>
 diffMethPerChr(myDiff,plot=FALSE,qvalue.cutoff=0.01, meth.cutoff=25)
 
 
 
-Finding differentially methylated bases using multiple-cores
+<u>Finding differentially methylated bases using multiple-cores</u>
 myDiff=calculateDiffMeth(meth,mc.cores=2)
 
-Annotating differentially methylated bases or regions
+<u>Annotating differentially methylated bases or regions</u>
 library(genomation)
 
-read the gene BED file
-gene.obj=readTranscriptFeatures(system.file("extdata", "refseq.hg18.bed.txt", 
+<u>read the gene BED file</u>
+gene.obj=readTranscriptFeatures(system.file("extdata", "refseq.hg18.bed.txt",
                                             package = "methylKit"))
-annotate differentially methylated CpGs with 
+<u>annotate differentially methylated CpGs with</u>
 promoter/exon/intron using annotation data
 
 annotateWithGeneParts(as(myDiff25p,"GRanges"),gene.obj)
 
 
-Read the CpG island annotation and annotate our differentially methylated bases/regions with them.
-read the shores and flanking regions and name the flanks as shores 
+<u>Read the CpG island annotation and annotate our differentially methylated bases/regions with them.</u>
+read the shores and flanking regions and name the flanks as shores
 and CpG islands as CpGi
-cpg.obj=readFeatureFlank(system.file("extdata", "cpgi.hg18.bed.txt", 
+cpg.obj=readFeatureFlank(system.file("extdata", "cpgi.hg18.bed.txt",
                                      package = "methylKit"),
                          feature.flank.name=c("CpGi","shores"))
 
-convert methylDiff object to GRanges and annotate
+<u>convert methylDiff object to GRanges and annotate</u>
 diffCpGann=annotateWithFeatureFlank(as(myDiff25p,"GRanges"),
                                     cpg.obj$CpGi,cpg.obj$shores,
                                     feature.name="CpGi",flank.name="shores")
 
 read the CpG island annotation and annotate our differentially methylated bases/regions with them.
-read the shores and flanking regions and name the flanks as shores 
+read the shores and flanking regions and name the flanks as shores
 and CpG islands as CpGi
-cpg.obj=readFeatureFlank(system.file("extdata", "cpgi.hg18.bed.txt", 
+cpg.obj=readFeatureFlank(system.file("extdata", "cpgi.hg18.bed.txt",
                                      package = "methylKit"),
                          feature.flank.name=c("CpGi","shores"))
 
