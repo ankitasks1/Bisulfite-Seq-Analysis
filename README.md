@@ -593,4 +593,4 @@ plotTargetAnnotation(diffCpGann,col=c("green","gray","white"),
 percentage of intron/exon/promoters that overlap with differentially methylated bases.
 getFeatsWithTargetsStats(diffAnn,percentage=TRUE)
 
-###################################################      END OF ANALYSIS   #######################################################
+#################   END OF ANALYSIS  ###################
