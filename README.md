@@ -358,22 +358,19 @@ test_report_list <- as.list(list.files(path = "/mnt/home3/outfolder/bismark_meth
 
 <code>
 for (content1 in test_report_list){
-	  print(content1)
-	  temp1 <- gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/", "", content1)
-	  temp1 <- gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov.CpG_test_report.txt.gz", "", temp1)
-	  print(temp1)
-	  test_report <- fread(content1)
-	  colnames(test_report) <- c("chr", "base", "strand", "methylated", "unmethylated", "Ccontext", "trinu_context")
-	  test_report <- data.frame(test_report)
-	  test_report["chrBase"] <- paste0(test_report$chr,
-					   ".",
-					   test_report$base)
-
-	  test_report["coverage"] <- test_report$methylated + test_report$unmethylated
-	  test_report["freqC"] <- (test_report$methylated  *  100) / (test_report$methylated + test_report$unmethylated)
-	  test_report["freqT"] <- (test_report$unmethylated  *  100) / (test_report$methylated + test_report$unmethylated)
-	  test_report <- test_report[,c(8,1,2,3,9,10,11)]
-	  write.table(test_report, paste0("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/",temp1,".CpG_test_report.txt"), sep="\t", quote = F, append=F, row.names = F, col.names = T)
+	print(content1)
+	temp1 <- gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/", "", content1)
+	temp1 <- gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov.CpG_test_report.txt.gz", "", temp1)
+	print(temp1)
+	test_report <- fread(content1)
+	colnames(test_report) <- c("chr", "base", "strand", "methylated", "unmethylated", "Ccontext", "trinu_context")
+	test_report <- data.frame(test_report)
+	test_report["chrBase"] <- paste0(test_report$chr, ".",test_report$base)
+	test_report["coverage"] <- test_report$methylated + test_report$unmethylated
+	test_report["freqC"] <- (test_report$methylated  *  100) / (test_report$methylated + test_report$unmethylated)
+	test_report["freqT"] <- (test_report$unmethylated  *  100) / (test_report$methylated + test_report$unmethylated)
+	test_report <- test_report[,c(8,1,2,3,9,10,11)]
+	write.table(test_report, paste0("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/",temp1,".CpG_test_report.txt"), sep="\t", quote = F, append=F, row.names = F, col.names = T)
 }
 </code>
 
