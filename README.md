@@ -409,24 +409,23 @@ nFiles <- length(CpG.reports.list)
 
 <code>
 for (report_content in CpG.reports.list){
-	  print(report_content)
-	  temp_content <- gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/", "", report_content)
-	  temp_content <- gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov.CpG_report.txt.gz", "", temp_content)
-	  print(temp_content)
-	  report <- fread(report_content)
-	  colnames(report) <- c("chr", "base", "strand", "methylated", "unmethylated", "Ccontext", "trinu_context")
-	  report <- data.frame(report)
-	  report["chrBase"] <- paste0(report$chr,
+	print(report_content)
+	temp_content <- gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/", "", report_content)
+	temp_content <- gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov.CpG_report.txt.gz", "", temp_content)
+        print(temp_content)
+	report <- fread(report_content)
+	colnames(report) <- c("chr", "base", "strand", "methylated", "unmethylated", "Ccontext", "trinu_context")
+	report <- data.frame(report)
+	report["chrBase"] <- paste0(report$chr,
 				      ".",
 				      report$base)
-
-	  report["coverage"] <- report$methylated + report$unmethylated
-	  report["freqC"] <- (report$methylated  *  100) / (report$methylated + report$unmethylated)
-	  report["freqT"] <- (report$unmethylated  *  100) / (report$methylated + report$unmethylated)
-	  report <- report[,c(8,1,2,3,9,10,11)]
-	  write.table(report, paste0("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/",temp_content,".CpG_report.txt"), sep="\t", quote = F, append=F, row.names = F, col.names = T)
-	  rm(report)
-	  rm(temp_content)
+	report["coverage"] <- report$methylated + report$unmethylated
+	report["freqC"] <- (report$methylated  *  100) / (report$methylated + report$unmethylated)
+	report["freqT"] <- (report$unmethylated  *  100) / (report$methylated + report$unmethylated)
+	report <- report[,c(8,1,2,3,9,10,11)]
+	write.table(report, paste0("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/",temp_content,".CpG_report.txt"), sep="\t", quote = F, append=F, row.names = F, col.names = T)
+	rm(report)
+	rm(temp_content)
 }
 </code>
 
@@ -439,13 +438,13 @@ samples.id <- lapply(mysamples_list, function(x) gsub("/mnt/home3/outfolder/bism
 read the files to a methylRawList object: myobj
 <code>
 myobjDB=methRead(mysamples_list,
-               sample.id=samples.id,
-               assembly="GRCm39",
-               treatment=rep(0, length(mysamples_list)),
-               context="CpG",
-               mincov = 5,
-               dbtype = "tabix",
-               dbdir = "methylDB")
+       sample.id=samples.id,
+       assembly="GRCm39",
+       treatment=rep(0, length(mysamples_list)),
+       context="CpG",
+       mincov = 5,
+       dbtype = "tabix",
+       dbdir = "methylDB")
 </code>
 
 print(myobjDB[[1]]@dbpath)
