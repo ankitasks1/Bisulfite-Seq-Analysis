@@ -374,9 +374,9 @@ for (content1 in test_report_list){
   test_report["freqT"] <- (test_report$unmethylated  *  100) / (test_report$methylated + test_report$unmethylated)
   test_report <- test_report[,c(8,1,2,3,9,10,11)]
   write.table(test_report, paste0("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/",temp1,".CpG_test_report.txt"), sep="\t", quote = F, append=F, row.names = F, col.names = T)
-}
+}</code>
 
-</code>
+
 Create a list of myCpG_report.txt
 test_list <- lapply(test_report_list, function(x) gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov","",(gsub(".gz","",x))))
 test.ids <- lapply(test_list, function(x) gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/","",(gsub(".CpG_test_report.txt","",x))))
@@ -387,15 +387,13 @@ sample_ids_reports_list <- lapply(str_split(CpG.reports.list,"/"), function(x) g
 
 
 read the files to a methylRawList object: myobj
-<code>
-myobj=methRead(test_list,
+<code>myobj=methRead(test_list,
                sample.id=test.ids,
                assembly="GRCm39",
                treatment=rep(0, length(test_list)),
                context="CpG",
                mincov = 5
-)
-</code>
+)</code>
 
 ---Now run the script on real data----
 samples
@@ -431,6 +429,7 @@ for (report_content in CpG.reports.list){
   rm(temp_content)
 }
 </code>
+
 Create a list of myCpG_report.txt
 mysamples_list <- lapply(CpG.reports.list, function(x) gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov","",(gsub(".gz","",x))))
 samples.id <- lapply(mysamples_list, function(x) gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/","",(gsub(".CpG_report.txt","",x))))
@@ -460,7 +459,8 @@ for (i in 1:nFiles) {
 }
 dev.off()
 
-Generate and save histograms showing CpG Methylation Coverage
+<u>Generate and save histograms showing CpG Methylation Coverage</u>
+<code>
 png("getCoverageStats.png", height = 1000, width = 1500)
 par(mfrow=c(4,4))
 for (i in 1:nFiles) {
@@ -468,6 +468,7 @@ for (i in 1:nFiles) {
   getCoverageStats(myobjDB[[i]], plot = TRUE, both.strands = FALSE) Get %CpG methylation information
 }
 dev.off()
+</code>
 
 
 Filtering samples based on read coverage
