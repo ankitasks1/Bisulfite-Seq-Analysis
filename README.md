@@ -324,6 +324,7 @@ dml_diffs <- 25
 
 #Import from BAM
 Get methylation stats for CpGs with at least min_coverage coverage
+<code>
 meth_stats <- processBismarkAln(location = bam_files_list,
                                 sample.id = sample_ids_list,
                                 assembly = "GRCm39.fa ",
@@ -335,7 +336,9 @@ meth_stats <- processBismarkAln(location = bam_files_list,
                                 phred64 = FALSE, Your data is phred33,
                                 treatment = rep(0, length(bam_files_list)),
                                 save.db = FALSE)
-File count
+</code>
+
+<u>File count</u>
 nFiles <- length(bam_files_list)
 	
 ###OR you can import from CpG report produced by Bismark
@@ -349,7 +352,7 @@ test_report_list <- as.list(list.files(path = "/mnt/home3/outfolder/bismark_meth
                                 pattern = "\\.cov.CpG_test_report.txt.gz",
                                 full.names = TRUE))
 
-
+<code>
 for (content1 in test_report_list){
   print(content1)
   temp1 <- gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/", "", content1)
@@ -368,6 +371,7 @@ for (content1 in test_report_list){
   test_report <- test_report[,c(8,1,2,3,9,10,11)]
   write.table(test_report, paste0("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/",temp1,".CpG_test_report.txt"), sep="\t", quote = F, append=F, row.names = F, col.names = T)
 }
+	</code>
 Create a list of myCpG_report.txt
 test_list <- lapply(test_report_list, function(x) gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov","",(gsub(".gz","",x))))
 test.ids <- lapply(test_list, function(x) gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/","",(gsub(".CpG_test_report.txt","",x))))
