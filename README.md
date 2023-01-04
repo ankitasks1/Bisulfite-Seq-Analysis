@@ -358,23 +358,24 @@ test_report_list <- as.list(list.files(path = "/mnt/home3/outfolder/bismark_meth
 
 <code>
 for (content1 in test_report_list){
-  print(content1)
-  temp1 <- gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/", "", content1)
-  temp1 <- gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov.CpG_test_report.txt.gz", "", temp1)
-  print(temp1)
-  test_report <- fread(content1)
-  colnames(test_report) <- c("chr", "base", "strand", "methylated", "unmethylated", "Ccontext", "trinu_context")
-  test_report <- data.frame(test_report)
-  test_report["chrBase"] <- paste0(test_report$chr,
-                                   ".",
-                                   test_report$base)
+	  print(content1)
+	  temp1 <- gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/", "", content1)
+	  temp1 <- gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov.CpG_test_report.txt.gz", "", temp1)
+	  print(temp1)
+	  test_report <- fread(content1)
+	  colnames(test_report) <- c("chr", "base", "strand", "methylated", "unmethylated", "Ccontext", "trinu_context")
+	  test_report <- data.frame(test_report)
+	  test_report["chrBase"] <- paste0(test_report$chr,
+					   ".",
+					   test_report$base)
 
-  test_report["coverage"] <- test_report$methylated + test_report$unmethylated
-  test_report["freqC"] <- (test_report$methylated  *  100) / (test_report$methylated + test_report$unmethylated)
-  test_report["freqT"] <- (test_report$unmethylated  *  100) / (test_report$methylated + test_report$unmethylated)
-  test_report <- test_report[,c(8,1,2,3,9,10,11)]
-  write.table(test_report, paste0("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/",temp1,".CpG_test_report.txt"), sep="\t", quote = F, append=F, row.names = F, col.names = T)
-}</code>
+	  test_report["coverage"] <- test_report$methylated + test_report$unmethylated
+	  test_report["freqC"] <- (test_report$methylated  *  100) / (test_report$methylated + test_report$unmethylated)
+	  test_report["freqT"] <- (test_report$unmethylated  *  100) / (test_report$methylated + test_report$unmethylated)
+	  test_report <- test_report[,c(8,1,2,3,9,10,11)]
+	  write.table(test_report, paste0("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/",temp1,".CpG_test_report.txt"), sep="\t", quote = F, append=F, row.names = F, col.names = T)
+}
+</code>
 
 
 Create a list of myCpG_report.txt
@@ -387,13 +388,15 @@ sample_ids_reports_list <- lapply(str_split(CpG.reports.list,"/"), function(x) g
 
 
 read the files to a methylRawList object: myobj
-<code>myobj=methRead(test_list,
-               sample.id=test.ids,
-               assembly="GRCm39",
-               treatment=rep(0, length(test_list)),
-               context="CpG",
-               mincov = 5
-)</code>
+<code>
+myobj=methRead(test_list,
+       sample.id=test.ids,
+       assembly="GRCm39",
+       treatment=rep(0, length(test_list)),
+       context="CpG",
+       mincov = 5
+)
+</code>
 
 ---Now run the script on real data----
 samples
@@ -409,24 +412,24 @@ nFiles <- length(CpG.reports.list)
 
 <code>
 for (report_content in CpG.reports.list){
-  print(report_content)
-  temp_content <- gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/", "", report_content)
-  temp_content <- gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov.CpG_report.txt.gz", "", temp_content)
-  print(temp_content)
-  report <- fread(report_content)
-  colnames(report) <- c("chr", "base", "strand", "methylated", "unmethylated", "Ccontext", "trinu_context")
-  report <- data.frame(report)
-  report["chrBase"] <- paste0(report$chr,
-                              ".",
-                              report$base)
+	  print(report_content)
+	  temp_content <- gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/", "", report_content)
+	  temp_content <- gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov.CpG_report.txt.gz", "", temp_content)
+	  print(temp_content)
+	  report <- fread(report_content)
+	  colnames(report) <- c("chr", "base", "strand", "methylated", "unmethylated", "Ccontext", "trinu_context")
+	  report <- data.frame(report)
+	  report["chrBase"] <- paste0(report$chr,
+				      ".",
+				      report$base)
 
-  report["coverage"] <- report$methylated + report$unmethylated
-  report["freqC"] <- (report$methylated  *  100) / (report$methylated + report$unmethylated)
-  report["freqT"] <- (report$unmethylated  *  100) / (report$methylated + report$unmethylated)
-  report <- report[,c(8,1,2,3,9,10,11)]
-  write.table(report, paste0("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/",temp_content,".CpG_report.txt"), sep="\t", quote = F, append=F, row.names = F, col.names = T)
-  rm(report)
-  rm(temp_content)
+	  report["coverage"] <- report$methylated + report$unmethylated
+	  report["freqC"] <- (report$methylated  *  100) / (report$methylated + report$unmethylated)
+	  report["freqT"] <- (report$unmethylated  *  100) / (report$methylated + report$unmethylated)
+	  report <- report[,c(8,1,2,3,9,10,11)]
+	  write.table(report, paste0("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/",temp_content,".CpG_report.txt"), sep="\t", quote = F, append=F, row.names = F, col.names = T)
+	  rm(report)
+	  rm(temp_content)
 }
 </code>
 
