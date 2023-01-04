@@ -297,14 +297,14 @@ In brief, follow this script
 setwd("/mnt/home3/outfolder/methylkit")
 Reading the methylation call files
 library(methylKit)
-Import deduplicated, sorted, BAM files
-Store bam files in list
+#Import deduplicated, sorted, BAM files
+#Store bam files in list
 bam_files_list <- as.list(list.files(path = "/mnt/home3/outfolder/bismark_deduplicated/",
                                      pattern = "\\.deduplicated.sorted.bam$",
                                      full.names = TRUE))
 
 
-List of sample IDs
+	<u>List of sample IDs</u>
 sample_ids_list <- lapply(str_split(bam_files_list,"/"), function(x) gsub("_R1_val_1_bismark_bt2_pe.deduplicated.sorted.bam","",x[11]))
 
 
@@ -322,9 +322,10 @@ Used in getMethylDiff function; 25 is the default value.
 dml_diffs <- 25
 
 
-#Import from BAM
+# Import from BAM
 Get methylation stats for CpGs with at least min_coverage coverage
-<code>
+
+	<code>
 meth_stats <- processBismarkAln(location = bam_files_list,
                                 sample.id = sample_ids_list,
                                 assembly = "GRCm39.fa ",
@@ -336,14 +337,17 @@ meth_stats <- processBismarkAln(location = bam_files_list,
                                 phred64 = FALSE, Your data is phred33,
                                 treatment = rep(0, length(bam_files_list)),
                                 save.db = FALSE)
-</code>
 
-<u>File count</u>
-nFiles <- length(bam_files_list)
+	      </code>
+
+
+		<u>File count</u>
+
+		nFiles <- length(bam_files_list)
 	
-###OR you can import from CpG report produced by Bismark
+# OR you can import from CpG report produced by Bismark
 	
-#Import from CpG report
+# Import from CpG report
 First convert .cov.gz file to .CpG.report.txt.gz using convert_cov_to_CpGreport.sh (custom)
 test
 <chromosome> <position> <strand> <count methylated> <count unmethylated> <C-context> <trinucleotide context>
@@ -352,7 +356,8 @@ test_report_list <- as.list(list.files(path = "/mnt/home3/outfolder/bismark_meth
                                 pattern = "\\.cov.CpG_test_report.txt.gz",
                                 full.names = TRUE))
 
-<code>
+
+		    <code>
 for (content1 in test_report_list){
   print(content1)
   temp1 <- gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/", "", content1)
@@ -371,16 +376,19 @@ for (content1 in test_report_list){
   test_report <- test_report[,c(8,1,2,3,9,10,11)]
   write.table(test_report, paste0("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/",temp1,".CpG_test_report.txt"), sep="\t", quote = F, append=F, row.names = F, col.names = T)
 }
-	</code>
+
+		</code>
 Create a list of myCpG_report.txt
 test_list <- lapply(test_report_list, function(x) gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov","",(gsub(".gz","",x))))
 test.ids <- lapply(test_list, function(x) gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/","",(gsub(".CpG_test_report.txt","",x))))
 
-List of sample IDs
+ 
+		<u>List of sample IDs</u>
 sample_ids_reports_list <- lapply(str_split(CpG.reports.list,"/"), function(x) gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov.CpG_report.txt.gz","",x[11]))
 
 
 read the files to a methylRawList object: myobj
+			   <code>
 myobj=methRead(test_list,
                sample.id=test.ids,
                assembly="GRCm39",
@@ -388,6 +396,7 @@ myobj=methRead(test_list,
                context="CpG",
                mincov = 5
 )
+		</code>
 
 ---Now run the script on real data----
 samples
@@ -397,9 +406,11 @@ CpG.reports.list <- as.list(list.files(path = "/mnt/home3/outfolder/bismark_meth
                                        pattern = "\\.cov.CpG_report.txt.gz",
                                        full.names = TRUE))
 
-File count
+
+		    <u>File count</u>
 nFiles <- length(CpG.reports.list)
 
+	  <code>
 for (report_content in CpG.reports.list){
   print(report_content)
   temp_content <- gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/", "", report_content)
@@ -420,6 +431,7 @@ for (report_content in CpG.reports.list){
   rm(report)
   rm(temp_content)
 }
+	</code>
 Create a list of myCpG_report.txt
 mysamples_list <- lapply(CpG.reports.list, function(x) gsub("_R1_val_1_bismark_bt2_pe.deduplicated.bismark.cov","",(gsub(".gz","",x))))
 samples.id <- lapply(mysamples_list, function(x) gsub("/mnt/home3/outfolder/bismark_methylation_calls/methylation_coverage/","",(gsub(".CpG_report.txt","",x))))
@@ -427,6 +439,7 @@ samples.id <- lapply(mysamples_list, function(x) gsub("/mnt/home3/outfolder/bism
 
 
 read the files to a methylRawList object: myobj
+	<code>
 myobjDB=methRead(mysamples_list,
                sample.id=samples.id,
                assembly="GRCm39",
@@ -435,6 +448,7 @@ myobjDB=methRead(mysamples_list,
                mincov = 5,
                dbtype = "tabix",
                dbdir = "methylDB")
+		</code>
 
 print(myobjDB[[1]]@dbpath)
 
