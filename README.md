@@ -272,7 +272,7 @@ sudo apt install libgd-graph-perl
 	
 # methylkit
 	
-# specific format is required as input to methylkit
+Note: Specific format is required as input to methylkit
 
 Extract lines corresponding to CG context from CX_report.txt
 <code>zcat Sample_CX_report.txt.gz | awk '{if($4=="CG") print $0}' -| gzip > Sample_CG_report.txt.gz</code>
