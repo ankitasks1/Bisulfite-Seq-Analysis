@@ -272,7 +272,7 @@ sudo apt install libgd-graph-perl
 	
 # methylkit
 	
-	<b> <u> Note: Specific format is required as input to methylkit </u> </b>
+<b><u>Note: Specific format is required as input to methylkit</u></b>
 
 <u>Extract lines corresponding to CG context from CX_report.txt</u>
 <code>zcat Sample_CX_report.txt.gz | awk '{if($4=="CG") print $0}' -| gzip > Sample_CG_report.txt.gz</code>
@@ -322,7 +322,7 @@ Used in getMethylDiff function; 25 is the default value.
 dml_diffs <- 25
 
 
-Import from BAM
+#Import from BAM
 Get methylation stats for CpGs with at least min_coverage coverage
 meth_stats <- processBismarkAln(location = bam_files_list,
                                 sample.id = sample_ids_list,
@@ -337,8 +337,10 @@ meth_stats <- processBismarkAln(location = bam_files_list,
                                 save.db = FALSE)
 File count
 nFiles <- length(bam_files_list)
-
-Import from CpG report
+	
+###OR you can import from CpG report produced by Bismark
+	
+#Import from CpG report
 First convert .cov.gz file to .CpG.report.txt.gz using convert_cov_to_CpGreport.sh (custom)
 test
 <chromosome> <position> <strand> <count methylated> <count unmethylated> <C-context> <trinucleotide context>
